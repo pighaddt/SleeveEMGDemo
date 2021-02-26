@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.ColorSpace
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
+import androidx.core.graphics.toColor
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -29,8 +31,13 @@ import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.timer
+import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
+
+    companion object{
+        private val TAG = MainActivity::class.java.simpleName
+    }
 
     //// 節省時間，使用過時的 ProgressDialog
     private var progressDialog: ProgressDialog? = null
@@ -168,18 +175,20 @@ class MainActivity : AppCompatActivity() {
 
                     val tempList = java.util.ArrayList<Record>()
 
-                    if (preText.isNotEmpty() && preText.length < 6) {
+                    if (preText.isNotEmpty() && preText.length == 5) {
                         val dataValue = getData(preText)
 
-                        if (dataValue[0] == 1) {
+                        if (dataValue[0] == 1 ) {
                             //// manage value of channel 1 only
+                                textColorSetting(dataValue[1])
+                            Log.d(TAG, "dataValue[1]:${dataValue[1]}")
                             tempList.add(
                                 Record(timeStartRecord + dataList.size, dataValue[1])
                             )
                         }
                     }
                     for (i in 1 until textArr.size - 1) {
-                        if (textArr[i].length < 6) {
+                        if (textArr[i].length == 5) {
                             val dataValue = getData(textArr[i])
 
                             if (dataValue[0] == 1) {
@@ -267,6 +276,20 @@ class MainActivity : AppCompatActivity() {
 //                }
 //            }
 //        }
+    }
+
+    private fun textColorSetting(dataValue: Int) {
+        val max = 3000f
+        val min = 1800f
+        var color  = (((dataValue-min) / 1200f) * 255f)
+        color = 255 - color
+        if (color > 255){
+            color = 255f
+        }else if (color < 0){
+            color = 0f
+        }
+        muscleTextview.setBackgroundColor(Color.rgb(255, color.toInt(), 0))
+        Log.d(TAG, "color: ${color}")
     }
 
     /**

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootScroller"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -173,5 +174,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textOriginXTitleCenter"
             app:srcCompat="@drawable/sleeve" />
+
+        <TextView
+            android:id="@+id/muscleTextview"
+            android:layout_width="40dp"
+            android:layout_height="27dp"
+            android:background="#FFFF00"
+            android:gravity="center"
+            android:text="muscle"
+            android:textColor="@color/black"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.463"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.777" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
