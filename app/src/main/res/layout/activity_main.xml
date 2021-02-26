@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootScroller"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity">
+
+        <LinearLayout
+            android:id="@+id/layoutConsole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/bg_block"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/buttonToggle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:layout_margin="2dp" />
+
+            <TextView
+                android:id="@+id/textConsole"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="#50cccccc"
+                android:maxLines="20"
+                android:padding="4dp"
+                android:scrollbars="vertical"
+                android:textColor="#703298"
+                android:textSize="16sp"
+                tools:text="123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textDeviceInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textColor="#4A4"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/buttonScan"
+            app:layout_constraintEnd_toStartOf="@id/buttonScan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/buttonScan"
+            tools:text="DeviceName\n02:00:00:00:00:00" />
+
+        <Button
+            android:id="@+id/buttonScan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:onClick="scan"
+            android:text="搜尋裝置"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressScanning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/buttonScan"
+            app:layout_constraintStart_toEndOf="@id/buttonScan"
+            app:layout_constraintTop_toTopOf="@id/buttonScan" />
+
+        <TextView
+            android:id="@+id/textOriginTitleCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Signal Corrupted with Zero-Mean Random Noise"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/chartOrigin"
+            app:layout_constraintStart_toStartOf="@id/chartOrigin"
+            app:layout_constraintTop_toBottomOf="@id/buttonScan" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chartOrigin"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="4dp"
+            app:layout_constraintDimensionRatio="W, 1:2"
+            app:layout_constraintTop_toBottomOf="@id/textOriginTitleCenter" />
+
+        <TextView
+            android:id="@+id/textOriginXTitleCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 (milliseconds)"
+            app:layout_constraintEnd_toEndOf="@id/chartOrigin"
+            app:layout_constraintStart_toStartOf="@id/chartOrigin"
+            app:layout_constraintTop_toBottomOf="@id/chartOrigin" />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/toggleRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:enabled="false"
+            android:textColor="@color/selector_toggle"
+            android:textOff="已停止"
+            android:textOn="記錄中.."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <EditText
+            android:id="@+id/editFileName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="檔案名稱"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="Sample.csv"
+            app:layout_constraintEnd_toStartOf="@id/buttonSaveFile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toggleRecord" />
+
+        <Button
+            android:id="@+id/buttonSaveFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="儲存紀錄至裝置"
+            app:layout_constraintBottom_toBottomOf="@id/editFileName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/editFileName" />
+
+        <EditText
+            android:id="@+id/editEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="abc@com.tw"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true"
+            app:layout_constraintEnd_toStartOf="@id/buttonEmail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editFileName" />
+
+        <Button
+            android:id="@+id/buttonEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="傳送至Mail"
+            app:layout_constraintBottom_toBottomOf="@id/editEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/editEmail" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="407dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textOriginXTitleCenter"
+            app:srcCompat="@drawable/sleeve" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
